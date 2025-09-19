@@ -8,14 +8,15 @@ pipeline {
     parameters {
         booleanParam(name: 'RUN_BUILD', defaultValue: true, description: 'Run Build Stage?')
     }
-    stage('Cleanup') {
-        steps {
-            cleanWs()  // Cleans the workspace before each build
-    }
-}
-
-
+    
     stages {
+        stage('Cleanup') {
+            steps {
+                cleanWs()  // Cleans the workspace before each build
+            }
+        }
+
+
         stage('Checkout') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'github_apps', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
