@@ -2,48 +2,39 @@ pipeline {
     agent any
 
     options {
-        disableConcurrentBuilds() 
+        timeout(time: 5, unit: 'MINUTES')  // Stop pipeline after 5 min
+    }
+
+    parameters {
+        booleanParam(name: 'RUN_BUILD', defaultValue: true, description: 'Run Build Stage?')
     }
 
     stages {
-        stage('Checkout'){
+        stage('Checkout') {
             steps {
-                git url: 'https://github.com/1994subhasmita-commits/subha_patra.git', 
-                    branch: 'main', 
-                    credentialsId: 'github_apps' 
-            }
-        }
-
-        stage('Prallel Stages') {
-            parallel {
-                stage('Check code quality repo1'){
-                    steps {
-                        sh '''
-                            pwd 
-                            ls -lrt
-                            
-                        '''
-                    }
-                }
-
-                stage('Build'){
-                    steps {
-                        sh '''
-                            pwd 
-                            ls -lrt
-                            sleep 10
-                        '''
-                    }
+                withCredentials([usernamePassword(credentialsId: 'github_apps', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                        echo "Cloning repo with user: $USER"
+                        # Example: git clone https://github.com/1994subhasmita-commits/subha_patra.git
+                    '''
                 }
             }
         }
 
-        stage('stage_final') {
-            steps{
-                echo "This is final stage"
+        stage('Build') {
+            when { expression { return params.RUN_BUILD } }  // Runs only if RUN_BUILD=true
+            steps {
+                sh '''
+                    echo "Building the project..."
+                    sleep 10
+                '''
             }
         }
-      
+
+        stage('Final') {
+            steps {
+                echo "This is the final stage"
+            }
+        }
     }
-
 }
