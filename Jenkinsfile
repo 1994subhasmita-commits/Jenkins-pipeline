@@ -15,7 +15,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'github_apps', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh '''
                         echo "Cloning repo with user: $USER"
-                        # Example: git clone https://github.com/1994subhasmita-commits/subha_patra.git
+                        git clone https://github.com/1994subhasmita-commits/subha_patra.git
                     '''
                 }
             }
