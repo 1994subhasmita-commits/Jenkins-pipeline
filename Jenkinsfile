@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     options {
-        timeout(time: 5, unit: 'MINUTES')  // Stop pipeline after 5 min
+        timeout(time: 5, unit: 'MINUTES')  
     }
 
     parameters {
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Cleanup') {
             steps {
-                cleanWs()  // Cleans the workspace before each build
+                cleanWs()  
             }
         }
 
