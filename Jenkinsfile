@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     options {
-        timeout(time: 5, unit: 'MINUTES')  // Stop pipeline after 5 min
+        timeout(time: 1 unit: 'MINUTES')  // Stop pipeline after 5 min
     }
 
     parameters {
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Building the project..."
-                    sleep 10
+                    sleep 70
                 '''
             }
         }
