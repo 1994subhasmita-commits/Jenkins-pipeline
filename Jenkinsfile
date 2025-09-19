@@ -21,7 +21,7 @@ pipeline {
                         sh '''
                             pwd 
                             ls -lrt
-                            exit 1
+                            
                         '''
                     }
                 }
