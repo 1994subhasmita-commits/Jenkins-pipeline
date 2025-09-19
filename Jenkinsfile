@@ -8,6 +8,12 @@ pipeline {
     parameters {
         booleanParam(name: 'RUN_BUILD', defaultValue: true, description: 'Run Build Stage?')
     }
+    stage('Cleanup') {
+        steps {
+            cleanWs()  // Cleans the workspace before each build
+    }
+}
+
 
     stages {
         stage('Checkout') {
